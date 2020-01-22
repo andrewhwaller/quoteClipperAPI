@@ -13,7 +13,8 @@ class Api::V1::QuotesController < ApplicationController
     end
     
     def show
-        render json: QuoteSerializer.new(@quote).serializable_hash
+        options = { include: [:user] }
+        render json: QuoteSerializer.new(@quote, options).serializable_hash
     end
 
     def index
