@@ -10,5 +10,4 @@ class QuoteTest < ActiveSupport::TestCase
         assert_equal [quotes(:three), quotes(:two)],
         Quote.filter_by_name("stephen").sort
     end
-
 end
