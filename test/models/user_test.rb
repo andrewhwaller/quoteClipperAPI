@@ -17,7 +17,7 @@ class UserTest < ActiveSupport::TestCase
 		assert_not user.valid?
 	end
 
-	test "destroy user should destroy linked quote" do
+    test "destroy user should destroy linked quote" do
 		assert_difference("Quote.count", -1) do
 			users(:one).destroy
 		end
