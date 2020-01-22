@@ -30,9 +30,9 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         as: :json
         assert_response :success
 
-        json_response = JSON.parse(response.body, symbolize_names: true)
+        json_response = JSON.parse(self.response.body, symbolize_names: true)
         assert_equal @quote.name, json_response.dig(:data, :attributes, :name)
-        assert_equal @quote.user,id.to_s, json_response.dig(:data, :relationships, :user, :data, :id)
+        assert_equal @quote.user.id.to_s, json_response.dig(:data, :relationships, :user, :data, :id)
         assert_equal @quote.user.email, json_response.dig(:included, 0, :attributes, :email)
     end
 
