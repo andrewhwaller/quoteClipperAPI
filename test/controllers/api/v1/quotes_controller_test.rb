@@ -31,7 +31,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
 
         json_response = JSON.parse(self.response.body)
-        assert_equal @quote.name, json_response["name"]
+        assert_equal @quote.name, json_response["data"]["attributes"]["name"]
     end
 
     test "should show quotes" do

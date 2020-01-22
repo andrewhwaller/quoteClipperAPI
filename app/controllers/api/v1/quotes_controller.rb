@@ -6,23 +6,24 @@ class Api::V1::QuotesController < ApplicationController
     def create
         quote = current_user.quotes.build(quote_params)
         if quote.save
-            render json: quote, status: :created
+            render json: QuoteSerializer.new(quote).serializable_hash, status: :created
         else
             render json: { errors: quote.errors }, status: :unprocessable_entity
         end
     end
     
     def show
-        render json: Quote.find(params[:id])
+        render json: QuoteSerializer.new(@quote).serializable_hash
     end
 
     def index
-        render json: Quote.all
+        @quotes = Quote.all
+        render json: QuoteSerializer.new(@quotes).serializable_hash
     end
 
     def update
         if @quote.update(quote_params)
-            render json: @quote
+            render json: QuoteSerializer.new(@quote).serializable_hash
         else
             render json: @quote.errors, status: :unprocessable_entity
         end
