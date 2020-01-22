@@ -21,5 +21,35 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
     end
 
+    test "should create quote" do
+        assert_difference('Quote.count') do
+            post api_v1_quotes_url,
+            params: { quote: { name: @quote.name, text: @quote.text, source_title: @quote.source_title, source_author: @quote.source_author, source_publication_year: @quote.source_publication_year } },
+            headers: { Authorization: JsonWebToken.encode(user_id: @quote.user_id) },
+            as: :json
+        end
+        assert_response :created
+    end
+
+    # test 'should create product' do
+    #     assert_difference('Product.count') do
+    #         post api_v1_products_url,
+    #         params: { product: { title: @product.title, price: @product.price, published: @product.published } },
+    #         headers: { Authorization: JsonWebToken.encode(user_id: @product.user_id) },
+    #         as: :json
+    #     end
+    #     assert_response :created
+    # end
+      
+
+    test "should forbid create quote" do
+        assert_no_difference("Quote.count") do
+            post api_v1_quotes_url,
+            params: { quote: { name: @quote.name, text: @quote.text, source_title: @quote.source_title, source_author: @quote.source_author, source_publication_year: @quote.source_publication_year } },
+            as: :json
+        end
+        assert_response :forbidden
+    end
+
 
 end
