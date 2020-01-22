@@ -16,4 +16,10 @@ class UserTest < ActiveSupport::TestCase
 		user = User.new(email: dupe_user.email, password_digest: "password")
 		assert_not user.valid?
 	end
+
+	test "destroy user should destroy linked quote" do
+		assert_difference("Quote.count", -1) do
+			users(:one).destroy
+		end
+	end
 end

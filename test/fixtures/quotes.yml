@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "John Webster's 'Reading Theology'"
+  text: "this would be the test"
+  source_title: "'Reading Theology'"
+  source_author: "John Webster"
+  source_page_number: 1
+  source_publisher: "Toronto Journal of Theology"
+  source_publication_year: 1997
+  user: one
+
+two:
+  name: "Stephen Carlson on the nativity in Luke"
+  text: "second quote text"
+  source_title: "Biblica"
+  source_author: "Stephen Carlson"
+  source_page_number: 56
+  source_publisher: "Pontifical Institute"
+  source_publication_year: 2007
+  user: two
