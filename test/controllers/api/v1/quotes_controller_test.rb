@@ -6,7 +6,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         @quote = quotes(:one)
     end
 
-    test "should create quote" do
+    test "authorized user should create quote" do
         assert_difference('Quote.count') do
             post api_v1_quotes_url,
             params: { quote: { name: @quote.name, text: @quote.text, source_title: @quote.source_title, source_author: @quote.source_author, source_publication_year: @quote.source_publication_year } },
@@ -16,7 +16,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_response :created
     end
 
-    test "should forbid create quote" do
+    test "unauthorized user should be forbidden from creating quote" do
         assert_no_difference("Quote.count") do
             post api_v1_quotes_url,
             params: { quote: { name: @quote.name, text: @quote.text, source_title: @quote.source_title, source_author: @quote.source_author, source_publication_year: @quote.source_publication_year } },
@@ -25,7 +25,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_response :forbidden
     end
 
-    test "should show quote" do
+    test "show should show quote" do
         get api_v1_quote_url(@quote),
         as: :json
         assert_response :success
@@ -36,13 +36,13 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_equal @quote.user.email, json_response.dig(:included, 0, :attributes, :email)
     end
 
-    test "should show quotes" do
+    test "index should show quotes" do
         get api_v1_quotes_url(),
         as: :json
         assert_response :success
     end
 
-    test "should update quote" do
+    test "authorized user should update quote" do
         patch api_v1_quote_url(@quote),
         params: { quote: { name: @quote.name } },
         headers: { Authorization: JsonWebToken.encode(user_id: @quote.user_id) },
@@ -50,7 +50,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
     end
 
-    test "should forbid update quote" do
+    test "unauthorized user should be forbidden from updating quote" do
         patch api_v1_quote_url(@quote),
         params: { quote: { name: @quote.name } },
         headers: { Authorization: JsonWebToken.encode(user_id: users(:two).id) },
@@ -58,7 +58,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_response :forbidden
     end
 
-    test "should destroy quote" do
+    test "authorized user should destroy quote" do
         assert_difference("Quote.count", -1) do
             delete api_v1_quote_url(@quote),
             headers: { Authorization: JsonWebToken.encode(user_id: @quote.user_id) },
@@ -67,7 +67,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
         assert_response :no_content
     end
 
-    test "should forbid destroy quote" do
+    test "unauthorized user should be forbidden from destroying quote" do
         assert_no_difference("Quote.count") do
             delete api_v1_quote_url(@quote),
             headers: { Authorization: JsonWebToken.encode(user_id: users(:two).id) },
