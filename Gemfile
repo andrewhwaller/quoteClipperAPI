@@ -40,13 +40,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 gem "bcrypt", "~> 3.1"
-
 gem "jwt", "~> 2.2"
-
 gem "faker", "~> 2.10"
-
 gem "fast_jsonapi", "~> 1.5"
-
 gem "rack-cors", "~> 1.1"
