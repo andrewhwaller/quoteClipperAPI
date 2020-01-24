@@ -4,6 +4,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
 
     setup do
         @quote = quotes(:one)
+        @user = users(:one)
     end
 
     test "authorized user should create quote" do
@@ -38,6 +39,7 @@ class Api::V1::QuotesControllerTest < ActionDispatch::IntegrationTest
 
     test "index should show quotes" do
         get api_v1_quotes_url(),
+        headers: { Authorization: JsonWebToken.encode(user_id: @user.id) },
         as: :json
         assert_response :success
     end
