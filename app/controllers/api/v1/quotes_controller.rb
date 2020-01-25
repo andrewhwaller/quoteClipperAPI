@@ -1,6 +1,6 @@
 class Api::V1::QuotesController < ApplicationController
     before_action :set_quote, only: [:show, :update, :destroy]
-    before_action :check_login, only: [:create, :index]
+    before_action :check_login, only: [:create]
     before_action :check_owner, only: [:update, :destroy]
     
     def create
