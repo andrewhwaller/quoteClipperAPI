@@ -19,7 +19,11 @@ class Api::V1::QuotesController < ApplicationController
 
     def index
         @quotes = Quote.all
-        render json: QuoteSerializer.new(@quotes).serializable_hash
+        if @quotes
+            render json: QuoteSerializer.new(@quotes).serializable_hash
+        else
+            render json: { errors: quote.errors }, status: :unprocessable_entity
+        end
     end
 
     def update
