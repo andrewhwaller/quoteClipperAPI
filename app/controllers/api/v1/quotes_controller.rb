@@ -19,7 +19,7 @@ class Api::V1::QuotesController < ApplicationController
     end
 
     def index
-        @quotes = Quote.all
+        @quotes = current_user.quotes.all
         if @quotes
             render json: QuoteSerializer.new(@quotes).serializable_hash
         else
