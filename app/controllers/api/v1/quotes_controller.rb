@@ -1,10 +1,11 @@
 class Api::V1::QuotesController < ApplicationController
     before_action :set_quote, only: [:show, :update, :destroy]
-    before_action :check_login, only: [:create]
-    before_action :check_owner, only: [:update, :destroy]
+    before_action :check_login, only: [:create, :index, :show, :update, :destroy]
+    before_action :check_owner, only: [:update, :destroy, :show]
     
     def create
         quote = current_user.quotes.build(quote_params)
+        quote.user_id = current_user.id
         if quote.save
             render json: QuoteSerializer.new(quote).serializable_hash, status: :created
         else
@@ -39,7 +40,6 @@ class Api::V1::QuotesController < ApplicationController
         head 204
     end
       
-
     private
 
     def quote_params
