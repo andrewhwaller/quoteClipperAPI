@@ -29,7 +29,7 @@ class Api::V1::QuotesController < ApplicationController
 
     def update
         if @quote.update(quote_params)
-            render json: QuoteSerializer.new(@quote).serializable_hash
+            render json: QuoteSerializer.new(@quote).serializable_hash, status: :accepted
         else
             render json: @quote.errors, status: :unprocessable_entity
         end
