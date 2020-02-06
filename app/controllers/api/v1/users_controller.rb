@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
         if @user.save
             render json: UserSerializer.new(@user).serializable_hash, status: :created
         else
-            render json: @user.errors, status: :unprocessable_entity
+            render json: @user.errors, status: :not_acceptable
         end
     end
 
@@ -48,7 +48,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:email, :password)
+        params.require(:user).permit(:email, :password, :password_confirmation)
     end
 
     def check_owner
