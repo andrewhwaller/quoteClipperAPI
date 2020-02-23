@@ -31,7 +31,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def login
-        user = User.find_by(email: params[:email].to_s.downcase)
+        user = User.find_by(email: params[:email].to_s)
     
         if user && user.authenticate(params[:password])
             auth_token = JsonWebToken.encode({ user_id: user.id })

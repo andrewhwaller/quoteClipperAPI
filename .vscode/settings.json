@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "solargraph.commandPath": "/home/andrewhwaller/.rbenv/shims/solargraph"
 }
